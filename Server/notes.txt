@@ -1,0 +1,3 @@
+If you are using the import to import the package then in package.json file make the update of : "type" = "module".
+After Nodemon install create the start script inside the package.json file.
+ 
