@@ -1,11 +1,14 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { darkTheme, lightTheme } from './CommonComponents/theme';
 import AppRoute from './Routes/AppRoute';
-import theme from './CommonComponents/theme';
 
 function App() {
+  const themeMode = useSelector(state => state.theme.palette.mode);
+  const theme = themeMode === 'light' ? lightTheme : darkTheme;
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline /> {/* This ensures consistent baseline styling */}

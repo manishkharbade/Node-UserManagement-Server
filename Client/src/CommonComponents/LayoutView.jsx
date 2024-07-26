@@ -15,22 +15,18 @@ const LayoutView = ({ children }) => {
     }, [accessToken]);
 
     return (
-        <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'row' }}>
-            {showLayout && (
-                <>
-                    <Sider />
-                    <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                        <Header />
-                        <Divider sx={{ boxShadow: 3, background: "#E5E4E2" }} />
-                        <Box sx={{ backgroundColor: '#fff', padding: '24px', margin: 0, flexGrow: 1 }}>
-                            {children}
-                        </Box>
-                        <Divider sx={{ background: "#E5E4E2" }} />
-                        <Footer />
+        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            <Header />
+            <Box sx={{ display: 'flex', flexGrow: 1 }}>
+                <Sider sx={{ width: '250px', flexShrink: 1 }} />
+                <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+                    <Box sx={{ flexGrow: 1, padding: '24px', backgroundColor: '#fff' }}>
+                        {children}
                     </Box>
-                </>
-            )}
-            {!showLayout && children}
+                    <Divider sx={{ background: "#E5E4E2" }} />
+                    <Footer />
+                </Box>
+            </Box>
         </Box>
     );
 };
