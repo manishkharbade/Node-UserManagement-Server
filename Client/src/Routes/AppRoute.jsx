@@ -1,9 +1,9 @@
-import React, { Suspense, lazy, useState, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import ROUTES from './routes';
-import LayoutView from '../CommonComponents/LayoutView';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { LoaderComponent, PageNotFound } from '../CommonComponents';
+import LayoutView from '../CommonComponents/LayoutView';
 import ProtectedRoute from './ProtectedRoute';
+import ROUTES from './routes';
 
 // Lazy load components
 const Login = lazy(() => import('../Components/Login/Login'));
@@ -26,41 +26,53 @@ const AppRoute = () => {
 
     return (
         <Suspense fallback={<LoaderComponent />}>
-            <LayoutView>
-                <Routes>
-                    <Route path={ROUTES.LOGIN} element={<Login />} />
-                    <Route path={ROUTES.REGISTER} element={<Register />} />
-                    <Route
-                        path="/"
-                        element={isAuthenticated ? <Navigate to={ROUTES.DASHBOARD} /> : <Navigate to={ROUTES.LOGIN} />}
-                    />
-                    <Route
-                        path={ROUTES.DASHBOARD}
-                        element={
-                            <ProtectedRoute>
+            <Routes>
+                <Route path={ROUTES.LOGIN} element={<Login />} />
+                <Route path={ROUTES.REGISTER} element={<Register />} />
+                <Route
+                    path="/"
+                    element={
+                        isAuthenticated ? (
+                            <LayoutView>
+                                <Navigate to={ROUTES.DASHBOARD} replace />
+                            </LayoutView>
+                        ) : (
+                            <Navigate to={ROUTES.LOGIN} replace />
+                        )
+                    }
+                />
+                <Route
+                    path={ROUTES.DASHBOARD}
+                    element={
+                        <ProtectedRoute>
+                            <LayoutView>
                                 <Dashboard />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path={ROUTES.USERS}
-                        element={
-                            <ProtectedRoute>
+                            </LayoutView>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path={ROUTES.USERS}
+                    element={
+                        <ProtectedRoute>
+                            <LayoutView>
                                 <Users />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path={ROUTES.PRODUCTS}
-                        element={
-                            <ProtectedRoute>
+                            </LayoutView>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path={ROUTES.PRODUCTS}
+                    element={
+                        <ProtectedRoute>
+                            <LayoutView>
                                 <Products />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route path="*" element={<PageNotFound />} /> {/* Catch-all route for 404 pages */}
-                </Routes>
-            </LayoutView>
+                            </LayoutView>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route path="*" element={<PageNotFound />} /> {/* Catch-all route for 404 pages */}
+            </Routes>
         </Suspense>
     );
 };

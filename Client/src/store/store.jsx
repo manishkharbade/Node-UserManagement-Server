@@ -9,7 +9,7 @@ const sagaMiddleware = createSagaMiddleware();
 // Create logger middleware
 const loggerMiddleware = createLogger({
     level: 'info',
-    collapsed: true,
+    collapsed: false,
     duration: true,
 });
 

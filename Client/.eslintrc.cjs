@@ -17,7 +17,16 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    'no-unused-vars': 'off',
-    "react/prop-types": "off"
+    'no-unused-vars': 'warn',
+    'react/prop-types': 0,
+    'no-extra-boolean-cast': 0,
+    'no-dupe-keys': 'warn',
+    'react/display-name': 0,
+    'react/react-in-jsx-scope': 'off',
+    'no-undef': 1,
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 0,
+    "react/no-unescaped-entities": 0
   },
 }

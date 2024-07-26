@@ -1,9 +1,113 @@
-import React from 'react'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Box, Button, Container, Link, TextField, Typography } from '@mui/material';
+import Card from '@mui/material/Card';
+import React from 'react';
+import { FormProvider, useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
+
+// Define validation schema using yup
+const schema = yup.object({
+    user_name: yup.string().required('User Name is required'),
+    email: yup.string().email('Invalid email format').required('Email is required'),
+    password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+}).required();
 
 const Register = () => {
-    return (
-        <div>Register</div>
-    )
-}
+    const navigate = useNavigate();
+    const methods = useForm({
+        resolver: yupResolver(schema), // Integrate yup validation schema
+        defaultValues: {
+            user_name: "",
+            email: "",
+            password: ''
+        },
+    });
+    const { handleSubmit, control, formState: { errors } } = methods;
 
-export default Register
+    const handleRedirectLogin = () => {
+        navigate('/login');
+    }
+
+    const handleSignUp = (data) => {
+        const payload = {
+            user_name: data?.user_name,
+            email: data?.email,
+            password: data?.password
+        }
+        console.log("payload:", payload);
+    }
+
+    return (
+        <Container
+            maxWidth="sm"
+            sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100vh",
+                padding: "1rem",
+            }}
+        >
+            <Card sx={{
+                width: "100%",
+                padding: "2rem",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+            }}>
+                <Typography variant='h6' component="h1">
+                    Sign Up
+                </Typography>
+
+                <FormProvider {...methods}>
+                    <form onSubmit={handleSubmit(handleSignUp)} style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        gap: "2rem",
+                        marginTop: "1.5rem"
+                    }}>
+                        <TextField
+                            {...methods.register('user_name')}
+                            label="User Name"
+                            type="text"
+                            size="small"
+                            fullWidth
+                            autoFocus
+                            error={!!errors.user_name}
+                            helperText={errors.user_name?.message}
+                        />
+                        <TextField
+                            {...methods.register('email')}
+                            label="Email"
+                            type="email"
+                            size="small"
+                            fullWidth
+                            error={!!errors.email}
+                            helperText={errors.email?.message}
+                        />
+                        <TextField
+                            {...methods.register('password')}
+                            label="Password"
+                            type="password"
+                            size="small"
+                            fullWidth
+                            error={!!errors.password}
+                            helperText={errors.password?.message}
+                        />
+                        <Button variant='contained' size='medium' sx={{ width: "100%" }} type="submit">Sign Up</Button>
+                        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "end", gap: "0.5rem" }}>
+                            <Typography variant="body1" color="initial">Already have an account?</Typography>
+                            <Link onClick={handleRedirectLogin} sx={{ cursor: 'pointer' }}>Sign In</Link>
+                        </Box>
+                    </form>
+                </FormProvider>
+
+            </Card>
+        </Container>
+    );
+};
+
+export default Register;
