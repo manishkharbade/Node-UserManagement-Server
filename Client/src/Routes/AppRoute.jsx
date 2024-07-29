@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { LoaderComponent, PageNotFound } from '../CommonComponents';
 import LayoutView from '../CommonComponents/LayoutView';
@@ -20,9 +20,11 @@ const AppRoute = () => {
             setIsAuthenticated(!!localStorage.getItem('accessToken'));
         };
 
+        handleStorageChange(); // Initialize state on mount
         window.addEventListener('storage', handleStorageChange);
+
         return () => window.removeEventListener('storage', handleStorageChange);
-    }, []);
+    }, []); // Empty dependency array to run once on mount
 
     return (
         <Suspense fallback={<LoaderComponent />}>
@@ -33,9 +35,7 @@ const AppRoute = () => {
                     path="/"
                     element={
                         isAuthenticated ? (
-                            <LayoutView>
-                                <Navigate to={ROUTES.DASHBOARD} replace />
-                            </LayoutView>
+                            <Navigate to={ROUTES.DASHBOARD} replace />
                         ) : (
                             <Navigate to={ROUTES.LOGIN} replace />
                         )

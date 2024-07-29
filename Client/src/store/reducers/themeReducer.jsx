@@ -1,4 +1,3 @@
-// src/redux/theme/themeReducer.js
 import { toggleTheme } from "../action-constants/actionTypes";
 
 const initialState = {
