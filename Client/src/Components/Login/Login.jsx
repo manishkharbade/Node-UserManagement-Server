@@ -49,6 +49,7 @@ const Login = () => {
     useEffect(() => {
         if (loginDetails && loginDetails.data) {
             localStorage.setItem('accessToken', loginDetails.data.accessToken);
+            localStorage.setItem('refreshToken', loginDetails.data.refreshToken);
             localStorage.setItem('role', loginDetails.data.userData.role);
             localStorage.setItem('email', loginDetails.data.userData.email);
             localStorage.setItem('userName', loginDetails.data.userData.userName);

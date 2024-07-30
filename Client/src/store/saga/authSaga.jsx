@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { authConstants } from "../action-constants/actionTypes";
-import { authLoading, loginError, loginSuccess, registerError, registerSuccess } from "../actions/actions";
-import { loginApi, registerApi } from "../apis/authApi";
+import { authLoading, loginError, loginSuccess, refreshTokenError, refreshTokenSuccess, registerError, registerSuccess } from "../actions/actions";
+import { loginApi, refreshTokenApi, registerApi } from "../apis/authApi";
 
 export function* registerAuthSaga({ payload }) {
     try {
@@ -38,6 +38,21 @@ export function* loginAuthSaga({ payload }) {
     }
 }
 
+export function* refreshTokenAuthSaga({ payload }) {
+    try {
+        yield put(authLoading(true));
+        const data = yield call(refreshTokenApi, payload);
+        if (data?.status === 200) {
+            yield put(refreshTokenSuccess(data));
+        } else {
+            yield put(refreshTokenError(data));
+        }
+        yield put(authLoading(false));
+    } catch (err) {
+        yield put(refreshTokenError(err));
+    }
+}
+
 export function* authRootSaga() {
     yield takeLatest(
         authConstants.REGISTER_ACTION,
@@ -46,6 +61,10 @@ export function* authRootSaga() {
     yield takeLatest(
         authConstants.LOGIN_ACTION,
         loginAuthSaga
+    );
+    yield takeLatest(
+        authConstants.REFRESH_TOKEN_ACTION,
+        refreshTokenAuthSaga
     );
 }
 

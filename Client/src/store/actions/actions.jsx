@@ -50,3 +50,17 @@ export const loginError = () => ({
 export const loginReset = () => ({
     type: authConstants.RESET_LOGIN,
 });
+
+// Auth Refresh
+export const refreshTokenAction = (payload) => ({
+    type: authConstants.REFRESH_TOKEN_ACTION,
+    payload: payload
+})
+export const refreshTokenSuccess = (payload) => ({
+    type: authConstants.REFRESH_TOKEN_SUCCESS,
+    payload: payload
+})
+export const refreshTokenError = (payload) => ({
+    type: authConstants.REFRESH_TOKEN_ERROR,
+    payload: payload
+})

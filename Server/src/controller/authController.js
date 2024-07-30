@@ -69,7 +69,7 @@ export const login = async (req, res) => {
             email: user.email,
             role: user.role
         }
-        res.status(200).json({ accessToken: token, userData });
+        res.status(200).json({ accessToken: token, refreshToken: refreshToken, userData });
     } catch (error) {
         if (error.code === 11000) {
             return res.status(400).json({ error: true, message: 'Email already exists' });
