@@ -9,9 +9,10 @@ import AppRoute from './Routes/AppRoute';
 function App() {
   const themeMode = useSelector(state => state.theme.palette.mode);
   const theme = themeMode === 'light' ? lightTheme : darkTheme;
+
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline /> {/* This ensures consistent baseline styling */}
+      <CssBaseline />
       <BrowserRouter>
         <AppRoute />
       </BrowserRouter>

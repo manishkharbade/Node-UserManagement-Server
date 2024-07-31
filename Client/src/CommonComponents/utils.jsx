@@ -34,3 +34,26 @@ export const handleTokenRefresh = async () => {
         return Promise.reject('Failed to refresh token');
     }
 };
+
+export const isAuthenticated = () => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+        return false;
+    }
+
+    try {
+        const tokenPayload = jwtDecode(accessToken);
+        const isTokenExpired = tokenPayload.exp * 1000 < Date.now();
+
+        if (isTokenExpired) {
+            localStorage.removeItem('accessToken');
+            return false;
+        }
+
+        return true;
+    } catch (e) {
+        localStorage.removeItem('accessToken');
+        return false;
+    }
+};

@@ -37,7 +37,7 @@ const Header = () => {
 
     return (
         <>
-            <AppBar position="static" sx={{ background: "#fff", color: '#000', height: "4.5rem", zIndex: "11" }}>
+            <AppBar position="static" sx={{ background: "#fff", color: '#000', height: "100%", zIndex: "11" }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between" }}>
                         <Box sx={{ padding: "1.5rem 2.4rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem" }}>
@@ -50,7 +50,10 @@ const Header = () => {
                             ) : (
                                 <LightModeIcon style={{ cursor: "pointer" }} onClick={handleThemeToggle} />
                             )}
-                            <Avatar sx={{ width: "2rem", height: "2rem", cursor: "pointer" }} />
+                            <Box sx={{ display: "flex", alignItems: "center", justifyContent: 'center', gap: '0.8rem', marginTop: "0rem" }}>
+                                <Avatar sx={{ width: "2rem", height: "2rem", cursor: "pointer" }} />
+                                <Typography variant="body1" color="initial">User</Typography>
+                            </Box>
                             <LogoutIcon sx={{ color: "#525252", cursor: "pointer" }} onClick={handleLogout} />
                         </Box>
                     </Toolbar>

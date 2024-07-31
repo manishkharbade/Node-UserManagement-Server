@@ -4,6 +4,7 @@ import { LoaderComponent, PageNotFound } from '../CommonComponents';
 import LayoutView from '../CommonComponents/LayoutView';
 import ProtectedRoute from './ProtectedRoute';
 import ROUTES from './routes';
+import { isAuthenticated } from '../CommonComponents/utils';
 
 // Lazy load components
 const Login = lazy(() => import('../Components/Login/Login'));
@@ -13,18 +14,23 @@ const Products = lazy(() => import('../Components/Main/Products'));
 const Users = lazy(() => import('../Components/Main/Users'));
 
 const AppRoute = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('accessToken'));
+    const [isAuth, setIsAuth] = useState(isAuthenticated());
 
     useEffect(() => {
+        if (!sessionStorage.getItem('isAppInitialized')) {
+            localStorage.clear();
+            sessionStorage.setItem('isAppInitialized', 'true');
+        }
+
         const handleStorageChange = () => {
-            setIsAuthenticated(!!localStorage.getItem('accessToken'));
+            setIsAuth(isAuthenticated());
         };
 
-        handleStorageChange(); // Initialize state on mount
+        handleStorageChange();
         window.addEventListener('storage', handleStorageChange);
 
         return () => window.removeEventListener('storage', handleStorageChange);
-    }, []); // Empty dependency array to run once on mount
+    }, []);
 
     return (
         <Suspense fallback={<LoaderComponent />}>
@@ -34,7 +40,7 @@ const AppRoute = () => {
                 <Route
                     path="/"
                     element={
-                        isAuthenticated ? (
+                        isAuth ? (
                             <Navigate to={ROUTES.DASHBOARD} replace />
                         ) : (
                             <Navigate to={ROUTES.LOGIN} replace />

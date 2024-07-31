@@ -1,12 +1,10 @@
-import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import { isAuthenticated } from './../CommonComponents/utils';
 
 const ProtectedRoute = ({ children }) => {
-    const isAuthenticated = !!localStorage.getItem('accessToken');
     const location = useLocation();
 
-    if (!isAuthenticated) {
-        // Redirect to login if not authenticated
+    if (!isAuthenticated()) {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
