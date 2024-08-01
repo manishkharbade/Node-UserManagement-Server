@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import { refreshTokenAction } from "../store/actions/actions";
-import store from './../store/store';
+import { store } from "../store/store";
 
 export const isTokenExpired = (token) => {
     if (!token) return true;

@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { LoaderComponent } from '../../CommonComponents';
 import nodesImage from '../../assets/nodes.png';
-import { toggleThemeAction } from '../../store/actions/actions';
+import { loginReset, toggleThemeAction } from '../../store/actions/actions';
 
 const Header = () => {
     const [loading, setLoading] = useState(false);
@@ -18,14 +18,16 @@ const Header = () => {
 
     const dispatch = useDispatch();
     const themeMode = useSelector(state => state.theme.palette.mode);
+    const { loginDetails } = useSelector((state) => state.auth);
 
     const handleLogout = () => {
+        dispatch(loginReset());
         setLoading(true);
         localStorage.clear();
         sessionStorage.clear();
         setTimeout(() => {
             setLoading(false);
-            navigate('/login');
+            navigate('/');
         }, 1000);
     };
 
@@ -34,6 +36,8 @@ const Header = () => {
         dispatch(toggleThemeAction(newMode));
         localStorage.setItem('themeMode', newMode);
     };
+
+    const userName = loginDetails?.data?.userData?.userName ?? 'local-user';
 
     return (
         <>
@@ -52,7 +56,7 @@ const Header = () => {
                             )}
                             <Box sx={{ display: "flex", alignItems: "center", justifyContent: 'center', gap: '0.8rem', marginTop: "0rem" }}>
                                 <Avatar sx={{ width: "2rem", height: "2rem", cursor: "pointer" }} />
-                                <Typography variant="body1" color="initial">User</Typography>
+                                <Typography variant="body1" color="initial">{userName}</Typography>
                             </Box>
                             <LogoutIcon sx={{ color: "#525252", cursor: "pointer" }} onClick={handleLogout} />
                         </Box>

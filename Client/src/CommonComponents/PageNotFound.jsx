@@ -11,7 +11,7 @@ const PageNotFound = () => {
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', background: 'linear-gradient(to right, #ece9e6, #ffffff)', height: '100vh' }}>
             <img src={PageNotFoundImg} />
-            <Typography variant="h5" color="initial" mb={1}>Ooops, page not found...!</Typography>
+            <Typography variant="h5" color="#616161 !important" mb={1}>Ooops, page not found...!</Typography>
             <Typography variant="body1" color="initial">Something went wrong.</Typography>
 
             {isAuthenticated() && (

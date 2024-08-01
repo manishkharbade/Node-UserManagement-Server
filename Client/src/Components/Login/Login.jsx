@@ -56,12 +56,6 @@ const Login = () => {
         }
     }, [loginDetails]);
 
-    useEffect(() => {
-        return () => {
-            dispatch(loginReset());
-        }
-    }, []);
-
     return (
         <>
             <Container
