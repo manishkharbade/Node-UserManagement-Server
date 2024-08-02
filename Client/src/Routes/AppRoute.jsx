@@ -23,14 +23,16 @@ const AppRoute = () => {
         }
 
         const handleStorageChange = () => {
-            setIsAuth(isAuthenticated());
+            const authState = isAuthenticated();
+            if (authState !== isAuth) {
+                setIsAuth(authState);
+            }
         };
 
-        handleStorageChange();
         window.addEventListener('storage', handleStorageChange);
 
         return () => window.removeEventListener('storage', handleStorageChange);
-    }, []);
+    }, [isAuth]);
 
     return (
         <Suspense fallback={<LoaderComponent />}>

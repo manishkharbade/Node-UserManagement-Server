@@ -42,6 +42,7 @@ export function* refreshTokenAuthSaga({ payload }) {
     try {
         yield put(authLoading(true));
         const data = yield call(refreshTokenApi, payload);
+        console.log("data:", data);
         if (data?.status === 200) {
             yield put(refreshTokenSuccess(data));
         } else {

@@ -1,4 +1,4 @@
-import { authConstants, toggleTheme } from "../action-constants/actionTypes";
+import { authConstants, toggleTheme, userConstants } from "../action-constants/actionTypes";
 
 export const toggleThemeLoading = (payload) => ({
     type: toggleTheme.TOGGLE_THEME_LOADING,
@@ -63,4 +63,25 @@ export const refreshTokenSuccess = (payload) => ({
 export const refreshTokenError = (payload) => ({
     type: authConstants.REFRESH_TOKEN_ERROR,
     payload: payload
+})
+
+// Get all users
+export const usersLoading = (payload) => ({
+    type: userConstants.USER_LOADING,
+    payload: payload
+})
+export const getAllUserAction = (payload) => ({
+    type: userConstants.USER_ACTION,
+    payload: payload
+})
+export const getAllUserSuccess = (payload) => ({
+    type: userConstants.USER_SUCCESS,
+    payload: payload
+})
+export const getAllUserError = (payload) => ({
+    type: userConstants.USER_ERROR,
+    payload: payload
+})
+export const getAllUserReset = () => ({
+    type: userConstants.USER_RESET,
 })

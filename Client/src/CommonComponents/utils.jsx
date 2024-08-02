@@ -22,7 +22,7 @@ export const handleTokenRefresh = async () => {
         return Promise.reject('No refresh token available');
     }
     try {
-        const response = await store.dispatch(refreshTokenAction(refreshToken)).then((action) => action.payload);
+        const response = await store.dispatch(refreshTokenAction(refreshToken)).then(action => action.payload);
         const { token } = response;
         if (token) {
             localStorage.setItem('accessToken', token);

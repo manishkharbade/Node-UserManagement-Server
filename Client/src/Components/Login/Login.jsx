@@ -41,6 +41,10 @@ const Login = () => {
     }
 
     useEffect(() => {
+        dispatch(loginReset());
+    }, [])
+
+    useEffect(() => {
         if (success === true) {
             navigate('/dashboard');
         }

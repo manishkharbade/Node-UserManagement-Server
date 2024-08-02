@@ -9,19 +9,19 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     async (config) => {
-        const token = localStorage.getItem('accessToken');
+        let token = localStorage.getItem('accessToken');
         const refreshToken = localStorage.getItem('refreshToken');
 
-        if (token) {
-            if (await isTokenExpired(token)) {
-                if (!refreshToken || await isTokenExpired(refreshToken)) {
-                    return Promise.reject('No valid refresh token available');
-                }
-                await handleTokenRefresh();
-                config.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
-            } else {
-                config.headers.Authorization = `Bearer ${token}`;
+        if (token && await isTokenExpired(token)) {
+            if (!refreshToken || await isTokenExpired(refreshToken)) {
+                return Promise.reject('No valid refresh token available');
             }
+            await handleTokenRefresh(); // Refresh the token
+            token = localStorage.getItem('accessToken'); // Get the new token
+        }
+
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
     },
@@ -29,7 +29,7 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-    (response) => response,
+    response => response,
     async (error) => {
         const originalRequest = error.config;
         if (error.response?.status === 401 && !originalRequest._retry) {

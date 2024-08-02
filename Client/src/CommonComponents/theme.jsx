@@ -117,7 +117,7 @@ const commonStyles = {
         MuiBackdrop: {
             styleOverrides: {
                 root: {
-                    backdropFilter: 'blur(3px)',
+                    backdropFilter: 'blur(2px)',
                 },
             },
         },
@@ -161,6 +161,7 @@ const commonStyles = {
             styleOverrides: {
                 root: {
                     borderRadius: 4,
+
                 },
             },
         },
@@ -209,6 +210,14 @@ const commonStyles = {
                 },
             },
         },
+        MuiDataGrid: {
+            styleOverrides: {
+                root: {
+                    borderRadius: 8,
+                    overflow: 'hidden',
+                },
+            },
+        }
     },
 };
 
@@ -340,6 +349,32 @@ const darkTheme = createTheme({
                 },
             },
         },
+        MuiDataGrid: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: '#3e424a !important',
+                    color: '#F1F1F1 !important',
+                },
+                columnHeaders: {
+                    backgroundColor: '#717277 !important',
+                },
+                columnHeader: {
+                    backgroundColor: '#717277 !important',
+                },
+                footerContainer: {
+                    backgroundColor: '#717277 !important',
+                },
+                cell: {
+                    backgroundColor: '#3e424a !important',
+                },
+                row: {
+                    backgroundColor: '#3e424a !important',
+                },
+                '& .MuiDataGrid-columnHeaders': {
+                    backgroundColor: '#717277 !important',
+                },
+            },
+        },
     },
 });
 
@@ -461,6 +496,32 @@ const lightTheme = createTheme({
                     '&:hover': {
                         color: '#323232 !important',
                     },
+                },
+            },
+        },
+        MuiDataGrid: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: '#3e424a !important',
+                    color: '#282828 !important',
+                },
+                columnHeaders: {
+                    backgroundColor: '#b5b5b5 !important',
+                },
+                columnHeader: {
+                    backgroundColor: '#b5b5b5 !important',
+                },
+                footerContainer: {
+                    backgroundColor: '#b5b5b5 !important',
+                },
+                cell: {
+                    backgroundColor: '#d5d5d5 !important',
+                },
+                row: {
+                    backgroundColor: '#d5d5d5 !important',
+                },
+                '& .MuiDataGrid-columnHeaders': {
+                    backgroundColor: '#d9d9d9 !important',
                 },
             },
         },

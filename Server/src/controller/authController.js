@@ -56,7 +56,7 @@ export const login = async (req, res) => {
         if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
 
         // Generate tokens
-        const token = generateToken(user, process.env.JWT_ACCESS_TOKEN_SECRET, '15m');
+        const token = generateToken(user, process.env.JWT_ACCESS_TOKEN_SECRET, '1m');
         const refreshToken = generateToken(user, process.env.JWT_REFRESH_TOKEN_SECRET, '7d');
 
         // Save the refresh token to the user object
@@ -93,7 +93,7 @@ export const refreshToken = async (req, res) => {
             return res.status(401).json({ message: 'Invalid token' });
         }
 
-        const token = generateToken(user, process.env.JWT_ACCESS_TOKEN_SECRET, '15m');
+        const token = generateToken(user, process.env.JWT_ACCESS_TOKEN_SECRET, '2m');
         const newRefreshToken = generateToken(user, process.env.JWT_REFRESH_TOKEN_SECRET, '7d');
 
         user.refreshToken = newRefreshToken;
