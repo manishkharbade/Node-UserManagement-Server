@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,6 +35,7 @@ const Users = () => {
 
     return (
         <Box style={{ height: 400, width: '100%' }}>
+            <Typography variant="h5" mb={2} color="initial">Users</Typography>
             <DataGrid
                 rows={data || []}
                 columns={columns}
